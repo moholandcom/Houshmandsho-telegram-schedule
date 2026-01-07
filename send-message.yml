@@ -1,0 +1,38 @@
+name: Send Telegram Message
+
+on:
+  schedule:
+    - cron: '0 */4 * * *' # هر 4 ساعت
+  workflow_dispatch: # اجرای دستی
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install requests
+        run: pip install requests
+
+      - name: Run script
+        run: |
+          python -c "
+import requests
+
+TOKEN = '8336610986:AAHNix94slZShIlvQZxeRXQjpWFKEiKDbfA'
+CHAT_ID = '@houshmandsho'
+message = '⏰ پیام زمان‌بندی‌شده از گیت‌هاب اکشن!'
+
+url = f'https://api.telegram.org/bot{TOKEN}/sendMessage'
+data = {'chat_id': CHAT_ID, 'text': message}
+
+r = requests.post(url, data=data)
+print('Status:', r.status_code)
+print('Response:', r.text)
+"
