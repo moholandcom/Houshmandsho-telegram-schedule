@@ -3,7 +3,7 @@ name: Send Telegram Message
 on:
   schedule:
     - cron: '0 */4 * * *'  # Every 4 hours
-  workflow_dispatch:
+  workflow_dispatch:       # لازم برای اجرای دستی
 
 jobs:
   send:
